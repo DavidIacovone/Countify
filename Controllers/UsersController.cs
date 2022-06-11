@@ -9,6 +9,7 @@ namespace Countify.Controllers
     {
         [HttpPost]
         [Route("register")]
+        [ProducesResponseType(201)]
         public ActionResult<User> Register(User user)
         {
             return Ok(user);
