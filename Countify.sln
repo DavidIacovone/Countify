@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countify", "Countify.csproj", "{B94ECDB1-7DE6-4476-823B-7DC1997EE06E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countify", "Countify.csproj", "{B94ECDB1-7DE6-4476-823B-7DC1997EE06E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16B80C15-2860-4647-A922-EFA4679850A6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
