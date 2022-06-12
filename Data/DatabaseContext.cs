@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Countify.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Countify.Data
 {
@@ -16,5 +17,7 @@ namespace Countify.Data
             // connect to sql server with connection string from app settings
             options.UseSqlServer(Configuration.GetConnectionString("MainDatabase"));
         }
+
+        public DbSet<User> Users { get; set; }  
     }
 }
