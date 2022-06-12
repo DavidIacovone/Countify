@@ -1,9 +1,10 @@
 ﻿using Countify.Data;
 using Countify.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Countify.services
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
         private readonly DatabaseContext db;
 
@@ -12,19 +13,20 @@ namespace Countify.services
             this.db = db;
         }
 
-        public void Add(User user)
+        public async Task Add(User user)
         {
-            db.Users.Add(user);
+            await db.Users.AddAsync(user);
+            await db.SaveChangesAsync();  
         }
 
-        public User GetById(Guid id)
+        public async Task<User> GetById(Guid id)
         {
-            return db.Users.FirstOrDefault(x => x.Id == id);
+            return await db.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public List<User> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            return db.Users.ToList();
+            return await db.Users.ToListAsync<User>();
         }
     }
 }
