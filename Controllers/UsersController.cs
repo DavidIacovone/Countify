@@ -9,12 +9,12 @@ namespace Countify.Controllers
     public class UsersController :ControllerBase
     {
         private readonly IUsersService usersService;
-        private readonly IAuthService authservice;
+        private readonly IAuthService authService;
 
         public UsersController(IUsersService usersService, IAuthService authservice)
         {
             this.usersService = usersService;
-            this.authservice = authservice;
+            this.authService = authservice;
         }
 
         [HttpPost]
@@ -29,7 +29,17 @@ namespace Countify.Controllers
         [Route("login")]
         public async Task<ActionResult<string>> login(string email, string password)
         {
+            //validating the request body
+            if (email == null || password == null) return BadRequest();
 
+            //finding the user in the db
+            var user = await usersService.GetByEmail(email);
+            if (user == null) return BadRequest("Email or password is wrong");
+
+            //checking the password
+            if (!authService.VerifyHash(user.Password, password)) return BadRequest("Email or password is wrong");
+
+            return Ok(authService.login(user));
         }
     }
 }

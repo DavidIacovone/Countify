@@ -21,6 +21,16 @@ namespace Countify.services
             return BCrypt.Net.BCrypt.HashPassword(s);
         }
 
+        public bool VerifyHash(string hash, string passwordProvided)
+        {
+            if (BCrypt.Net.BCrypt.Verify(passwordProvided, hash))
+            {
+                return true;    
+            }
+
+            return false;
+        }
+
         public string login(User user)
         {
             //passing data to JWT
@@ -31,7 +41,7 @@ namespace Countify.services
             };
 
             //defining the secret for token generation
-            var secret = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(config.GetSection("AppSettings:secret").Value));
+            var secret = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(config.GetSection("Secrets:secret-jwt").Value));
 
             //signing the token
             var cred = new SigningCredentials(secret, SecurityAlgorithms.HmacSha512Signature);
