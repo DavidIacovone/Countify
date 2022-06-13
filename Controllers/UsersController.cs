@@ -1,5 +1,6 @@
 ﻿using Countify.Models;
 using Countify.services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Countify.Controllers
@@ -40,6 +41,14 @@ namespace Countify.Controllers
             if (!authService.VerifyHash(user.Password, password)) return BadRequest("Email or password is wrong");
 
             return Ok(authService.login(user));
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("displayAccount")]
+        public async Task<ActionResult<User>> DisplayAccount(Guid id)
+        {
+            return await usersService.GetById(id);
         }
     }
 }
