@@ -9,27 +9,27 @@ namespace Countify.Controllers
     public class UsersController :ControllerBase
     {
         private readonly IUsersService usersService;
+        private readonly IAuthService authservice;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService, IAuthService authservice)
         {
             this.usersService = usersService;
+            this.authservice = authservice;
         }
 
         [HttpPost]
         [Route("register")]
-        [ProducesResponseType(201)]
         public async Task<ActionResult<User>> Register(User user)
         {
             await usersService.Add(user);
             return Ok(user);
         }
 
-        [HttpGet]
-        [Route("get")]
-        [ProducesResponseType(200)]
-        public async Task<ActionResult<List<User>>> GetAll()
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<string>> login(string email, string password)
         {
-            return Ok(await usersService.GetAll());   
+
         }
     }
 }
