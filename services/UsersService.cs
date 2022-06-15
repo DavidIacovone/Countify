@@ -36,5 +36,16 @@ namespace Countify.services
         {
             return await db.Users.ToListAsync<User>();
         }
+
+        public async Task<User> Update(User updatedUser)
+        {
+            var userToUpdate = await GetById(updatedUser.Id);
+            if (userToUpdate == null) return null;
+
+            userToUpdate = updatedUser;
+            await db.SaveChangesAsync();
+
+            return userToUpdate;
+        }
     }
 }

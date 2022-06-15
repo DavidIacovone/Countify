@@ -8,5 +8,6 @@ namespace Countify.services
         Task<List<User>> GetAll();
         Task<User> GetById(Guid id);
         Task<User> GetByEmail(string email);
+        Task<User> Update(User updatedUser);
     }
 }
