@@ -7,40 +7,40 @@ namespace Countify.Controllers
 {
     [ApiController]
     [Route("accounts")]
-    public class UsersController :ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly IUsersService usersService;
-        private readonly IAuthService authService;
+        private readonly IUsersService UsersService;
+        private readonly IAuthService AuthService;
 
         public UsersController(IUsersService usersService, IAuthService authservice)
         {
-            this.usersService = usersService;
-            this.authService = authservice;
+            this.UsersService = usersService;
+            this.AuthService = authservice;
         }
 
         [HttpPost]
         [Route("register")]
         public async Task<ActionResult<User>> Register(User user)
         {
-            await usersService.Add(user);
+            await UsersService.Add(user);
             return Ok(user);
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<string>> login(string email, string password)
+        public async Task<ActionResult<string>> Login(string email, string password)
         {
             //validating the request body
             if (email == null || password == null) return BadRequest();
 
             //finding the user in the db
-            var user = await usersService.GetByEmail(email);
+            var user = await UsersService.GetByEmail(email);
             if (user == null) return BadRequest("Email or password is wrong");
 
             //checking the password
-            if (!authService.VerifyHash(user.Password, password)) return BadRequest("Email or password is wrong");
+            if (!AuthService.VerifyHash(user.Password, password)) return BadRequest("Email or password is wrong");
 
-            return Ok(authService.login(user));
+            return Ok(AuthService.login(user));
         }
 
         [HttpGet]
@@ -48,7 +48,7 @@ namespace Countify.Controllers
         [Route("displayAccount")]
         public async Task<ActionResult<User>> DisplayAccount(Guid id)
         {
-            return await usersService.GetById(id);
+            return await UsersService.GetById(id);
         }
     }
 }
