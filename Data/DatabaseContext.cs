@@ -1,12 +1,13 @@
 ﻿using Countify.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Countify.Data
-{
-    public class DatabaseContext : DbContext
-    {
-        public DatabaseContext(DbContextOptions options) : base(options) { }
+namespace Countify.Data;
 
-        public DbSet<User> Users { get; set; }  
+public class DatabaseContext : DbContext
+{
+    public DatabaseContext(DbContextOptions options) : base(options)
+    {
     }
+
+    public DbSet<User> Users { get; set; }
 }

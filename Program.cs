@@ -16,8 +16,9 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("first"));
 });
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUsersService, UsersService>(); 
-builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddControllers(options =>
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -36,7 +37,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Secrets:secret-jwt").Value)),
+        IssuerSigningKey =
+            new SymmetricSecurityKey(
+                System.Text.Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Secrets:secret-jwt").Value)),
         ValidateIssuer = false,
         ValidateAudience = false
     };

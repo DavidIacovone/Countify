@@ -1,11 +1,10 @@
-﻿namespace Countify.Models
+﻿namespace Countify.Models;
+
+public enum Role
 {
-    public enum Role
-    {
-        SubMember,
-        Member,
-        HouseKeeper,
-        MoneyKeeper,
-        VicePresident
-    }
+    SubMember,
+    Member,
+    HouseKeeper,
+    MoneyKeeper,
+    VicePresident
 }
