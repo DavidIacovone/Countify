@@ -37,6 +37,7 @@ public class TaxController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "MoneyKeeper")]
     [Route("AddPenalty")]
     public async Task<ActionResult<Penalty>> AddPenalty(Penalty penalty)
     {
