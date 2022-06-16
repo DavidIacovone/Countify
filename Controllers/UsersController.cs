@@ -50,4 +50,15 @@ public class UsersController : ControllerBase
     {
         return await UsersService.GetById(id);
     }
+    
+    
+    // for testing only
+#if DEBUG
+    [HttpGet]
+    [Route("getall")]
+    public async Task<ActionResult<List<User>>> getall()
+    {
+        return await UsersService.GetAll();
+    }
+#endif
 }

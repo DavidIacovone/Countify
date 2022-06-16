@@ -7,14 +7,19 @@ namespace Countify.services;
 public class PenaltiesService : IPenaltiesService
 {
     private readonly DatabaseContext db;
+    private readonly IUsersService UsersService;
 
-    public PenaltiesService(DatabaseContext db)
+    public PenaltiesService(DatabaseContext db, IUsersService usersService)
     {
         this.db = db;
+        UsersService = usersService;
     }
 
     public async Task<Penalty> Add(Penalty p)
     {
+        var userWithAppliedPenalty = await UsersService.GetById(p.OwnerId);
+        userWithAppliedPenalty.Balance = userWithAppliedPenalty.Balance + p.Amount;
+        
         await db.Penalties.AddAsync(p);
         await db.SaveChangesAsync();
         return await db.Penalties.FirstOrDefaultAsync(i => i.Id == p.Id);

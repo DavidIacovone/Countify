@@ -12,10 +12,12 @@ namespace Countify.Controllers;
 public class TaxController : ControllerBase
 {
     private readonly IUsersService UsersService;
+    private readonly IPenaltiesService PenaltyService;
 
-    public TaxController(IUsersService usersService)
+    public TaxController(IUsersService usersService, IPenaltiesService penaltyService)
     {
         UsersService = usersService;
+        PenaltyService = penaltyService;
     }
 
     [HttpPost]
@@ -33,10 +35,12 @@ public class TaxController : ControllerBase
 
         return Ok(updatedUser.Balance);
     }
-
+    
+    [HttpPost]
+    [Route("AddPenalty")]
     public async Task<ActionResult<Penalty>> AddPenalty(Penalty penalty)
     {
-        //TODO
-        return Ok();
+        var createdPenalty = await PenaltyService.Add(penalty);
+        return Ok(createdPenalty);
     }
 }
