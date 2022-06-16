@@ -19,7 +19,7 @@ public class PenaltiesService : IPenaltiesService
     {
         var userWithAppliedPenalty = await UsersService.GetById(p.OwnerId);
         userWithAppliedPenalty.Balance = userWithAppliedPenalty.Balance + p.Amount;
-        
+
         await db.Penalties.AddAsync(p);
         await db.SaveChangesAsync();
         return await db.Penalties.FirstOrDefaultAsync(i => i.Id == p.Id);

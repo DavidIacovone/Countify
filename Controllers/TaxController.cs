@@ -35,7 +35,7 @@ public class TaxController : ControllerBase
 
         return Ok(updatedUser.Balance);
     }
-    
+
     [HttpPost]
     [Route("AddPenalty")]
     public async Task<ActionResult<Penalty>> AddPenalty(Penalty penalty)

@@ -50,8 +50,8 @@ public class UsersController : ControllerBase
     {
         return await UsersService.GetById(id);
     }
-    
-    
+
+
     // for testing only
 #if DEBUG
     [HttpGet]
