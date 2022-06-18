@@ -44,15 +44,14 @@ public class TaxController : ControllerBase
         var createdPenalty = await PenaltyService.Add(penalty);
         return Ok(createdPenalty);
     }
-    
+
     [HttpPost]
     [Authorize(Roles = "MoneyKeeper")]
     [Route("AddFees")]
     public async Task<ActionResult<string>> AddFees()
     {
-        List<User> users = await UsersService.GetAll();
+        var users = await UsersService.GetAll();
         foreach (var user in users)
-        {
             if (user.Role == Role.SubMember)
             {
                 user.Balance = user.Balance - 20;
@@ -63,7 +62,6 @@ public class TaxController : ControllerBase
                 user.Balance = user.Balance - 50;
                 await UsersService.Update(user);
             }
-        }
 
         return Ok("Fees applied");
     }

@@ -65,7 +65,7 @@ public class UsersController : ControllerBase
     // for testing only
 #if DEBUG
     [HttpGet]
-    [Route("getall")]
+    [Route("getAll")]
     public async Task<ActionResult<List<User>>> getall()
     {
         return await UsersService.GetAll();

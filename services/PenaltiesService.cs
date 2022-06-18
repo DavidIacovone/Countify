@@ -37,7 +37,7 @@ public class PenaltiesService : IPenaltiesService
 
     public async Task<List<Penalty>> GetPenalties(Guid id)
     {
-        List<Penalty> penalties = await db.Penalties.Where(p => p.OwnerId == id).ToListAsync();
+        var penalties = await db.Penalties.Where(p => p.OwnerId == id).ToListAsync();
         return penalties;
     }
 }
