@@ -11,11 +11,13 @@ public class UsersController : ControllerBase
 {
     private readonly IUsersService UsersService;
     private readonly IAuthService AuthService;
+    private readonly IPenaltiesService PenaltiesService;
 
-    public UsersController(IUsersService usersService, IAuthService authservice)
+    public UsersController(IUsersService usersService, IAuthService authService, IPenaltiesService penaltiesService)
     {
         UsersService = usersService;
-        AuthService = authservice;
+        AuthService = authService;
+        PenaltiesService = penaltiesService;
     }
 
     [HttpPost]
@@ -45,10 +47,18 @@ public class UsersController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    [Route("displayAccount")]
-    public async Task<ActionResult<User>> DisplayAccount(Guid id)
+    [Route("getAccount")]
+    public async Task<ActionResult<User>> GetAccount(Guid id)
     {
         return await UsersService.GetById(id);
+    }
+
+    [HttpGet]
+    [Authorize]
+    [Route("getPenalties")]
+    public async Task<ActionResult<List<Penalty>>> GetPenalties(Guid id)
+    {
+        return Ok(await PenaltiesService.GetPenalties(id));
     }
 
 

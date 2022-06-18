@@ -34,4 +34,10 @@ public class PenaltiesService : IPenaltiesService
         await db.SaveChangesAsync();
         return await db.Penalties.FirstOrDefaultAsync(i => i.Id == updatedPenalty.Id);
     }
+
+    public async Task<List<Penalty>> GetPenalties(Guid id)
+    {
+        List<Penalty> penalties = await db.Penalties.Where(p => p.OwnerId == id).ToListAsync();
+        return penalties;
+    }
 }
