@@ -2,6 +2,13 @@
 
 public class Penalty
 {
+
+    public Penalty()
+    {
+        Id = new Guid();
+        IsPaid = false;
+    }
+    
     public Guid Id { get; init; }
     public string Title { get; set; }
     public string Description { get; set; }

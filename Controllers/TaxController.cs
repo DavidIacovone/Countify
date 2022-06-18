@@ -37,7 +37,7 @@ public class TaxController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "MoneyKeeper")]
+    [Authorize(Roles = "MoneyKeeper, HouseKeeper, VicePresident")]
     [Route("AddPenalty")]
     public async Task<ActionResult<Penalty>> AddPenalty(Penalty penalty)
     {
@@ -46,7 +46,7 @@ public class TaxController : ControllerBase
     }
     
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "MoneyKeeper")]
     [Route("AddFees")]
     public async Task<ActionResult<string>> AddFees()
     {
