@@ -24,25 +24,39 @@ public class UsersController : ControllerBase
     [Route("register")]
     public async Task<ActionResult<User>> Register(User user)
     {
-        await UsersService.Add(user);
-        return Ok(user);
+        try
+        {
+            await UsersService.Add(user);
+            return Ok(user);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
     [HttpPost]
     [Route("login")]
     public async Task<ActionResult<string>> Login(string email, string password)
     {
-        //validating the request body
-        if (email == null || password == null) return BadRequest();
+        try
+        {
+            //validating the request body
+            if (email == null || password == null) return BadRequest();
 
-        //finding the user in the db
-        var user = await UsersService.GetByEmail(email);
-        if (user == null) return BadRequest("Email or password is wrong");
+            //finding the user in the db
+            var user = await UsersService.GetByEmail(email);
+            if (user == null) return BadRequest("Email or password is wrong");
 
-        //checking the password
-        if (!AuthService.VerifyHash(user.Password, password)) return BadRequest("Email or password is wrong");
+            //checking the password
+            if (!AuthService.VerifyHash(user.Password, password)) return BadRequest("Email or password is wrong");
 
-        return Ok(AuthService.login(user));
+            return Ok(AuthService.login(user));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
     [HttpGet]
@@ -50,7 +64,14 @@ public class UsersController : ControllerBase
     [Route("getAccount")]
     public async Task<ActionResult<User>> GetAccount(Guid id)
     {
-        return await UsersService.GetById(id);
+        try
+        {
+            return await UsersService.GetById(id);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
     [HttpGet]
@@ -58,7 +79,14 @@ public class UsersController : ControllerBase
     [Route("getPenalties")]
     public async Task<ActionResult<List<Penalty>>> GetPenalties(Guid id)
     {
-        return Ok(await PenaltiesService.GetPenalties(id));
+        try
+        {
+            return Ok(await PenaltiesService.GetPenalties(id));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 
 
@@ -68,7 +96,14 @@ public class UsersController : ControllerBase
     [Route("getAll")]
     public async Task<ActionResult<List<User>>> getall()
     {
-        return await UsersService.GetAll();
+        try
+        {
+            return await UsersService.GetAll();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
     }
 #endif
 }
