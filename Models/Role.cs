@@ -6,5 +6,7 @@ public enum Role
     Member,
     HouseKeeper,
     MoneyKeeper,
-    VicePresident
+    VicePresident,
+    President,
+    Administrator
 }

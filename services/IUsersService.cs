@@ -9,4 +9,5 @@ public interface IUsersService
     Task<User> GetById(Guid id);
     Task<User> GetByEmail(string email);
     Task<User> Update(User updatedUser);
+    Task<User> Remove(Guid id);
 }

@@ -22,6 +22,17 @@ public class UsersService : IUsersService
         await db.SaveChangesAsync();
     }
 
+    public async Task<User> Remove(Guid id)
+    {
+        var user = await GetById(id);
+        if (user == null) return null;
+
+        db.Users.Remove(user);
+        await db.SaveChangesAsync();
+
+        return user;
+    }
+
     public async Task<User> GetById(Guid id)
     {
         return await db.Users.FirstOrDefaultAsync(x => x.Id == id);
