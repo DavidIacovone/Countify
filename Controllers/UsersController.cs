@@ -59,6 +59,26 @@ public class UsersController : ControllerBase
         }
     }
 
+    [HttpPatch]
+    [Authorize]
+    [Route("editAccount")]
+    public async Task<ActionResult<User>> EditAccount(User user)
+    {
+        try
+        {
+            var userToUpdate = await UsersService.GetById(user.Id);
+            if (userToUpdate == null) return BadRequest("This account does not exist");
+
+            userToUpdate = user;
+            return Ok(await UsersService.Update(userToUpdate));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
+        }
+    }
+
+
     [HttpGet]
     [Authorize]
     [Route("getAccount")]
